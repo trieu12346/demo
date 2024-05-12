@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAI 2</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 1000px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Khởi tạo bản đồ với toạ độ và tỷ lệ zoom thích hợp để thể hiện đất nước Việt Nam
+        var map = L.map('map').setView([16.4637, 107.5909], 6);
+
+        // Thêm tile layer cho bản đồ
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Thêm marker mặc định tại Hà Nội
+        var hanoiMarker = L.marker([21.0285, 105.8542]).addTo(map);
+
+        // Thêm marker dạng hình ảnh tại Huế
+        var hueMarker = L.marker([16.4637, 107.5909], {
+            icon: L.icon({
+                iconUrl: 'hue.JPG',
+                iconSize: [60, 95],
+                iconAnchor: [22, 94],
+                popupAnchor: [-3, -76],
+            })
+        }).addTo(map);
+
+        // Thêm popup tại Cần Thơ
+        var canthoPopup = L.popup()
+            .setLatLng([10.0451, 105.7469])
+            .setContent("Welcome to Cần Thơ")
+            .openOn(map);
+    </script>
+</body>
+</html>

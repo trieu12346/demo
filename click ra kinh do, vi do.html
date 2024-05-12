@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2a </title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([10.7769, 106.7009], 10); // Khởi tạo bản đồ Leaflet
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    map.on('click', function(ev){
+        var clickLatLng = ev.latlng; //Lấy toạ độ khi click vào bản đồ
+        var popupContent = "kinh do: " + clickLatLng.lat.toFixed(6) + "<br>vi do: " + clickLatLng.lng.toFixed(6); // Popup content with latitude and longitude
+        L.popup()
+            .setLatLng(clickLatLng)
+            .setContent(popupContent)
+            .openOn(map);
+    });
+</script>
+</body>
+</html>

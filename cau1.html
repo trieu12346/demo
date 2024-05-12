@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c1</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+    #map{
+        height: 900px;
+        width: 100%;
+        border: 2px solid black;
+    }
+    html,body {width: 100%;height: 100%;}
+</style>
+</head>
+<body>
+    <div id = "map"> </div>
+    <script>
+        var map = L.map('map').setView([10.0341844,105.7163705], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    var OpenStreetMap_DE = L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    var baseMaps = {
+        "Mapbox": map,
+        "OpenStreetMap_DE": OpenStreetMap_DE
+        };
+        L.control.layers(baseMaps).addTo(map);
+
+        var latlngs = [
+    [9.947458228563352, 105.63813057421862],
+    [9.48859426700358, 105.11627998828244],
+    
+];
+
+var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+
+// zoom the map to the polyline
+map.fitBounds(polyline.getBounds());
+L.marker([9.740438313962699, 105.41016426562413]).addTo(map);
+    </script>
+
+</body>
+</html>
