@@ -28,14 +28,14 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var colors =['red','blue', 'orange','green'];
-function getRandomcolor(){
-    return colors[Math.floor(Math.random()*colors.length)];
+var color =['red','blue', 'orange','green'];
+function randomHsl() {
+    return 'hsla(' + (Math.random() * 360) + ', 100%, 50%, 1)';
 }
 map.on('click', function(ev) {
-    var color = getRandomcolor();
+    var color = randomHsl();
     var click= L.circle(ev.latlng, {
-    color: colors,
+    color: color,
     fillColor: color,
     fillOpacity: 0.5,
     radius: 1000

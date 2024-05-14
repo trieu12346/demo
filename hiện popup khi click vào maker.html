@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAI 2</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 1000px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Khởi tạo bản đồ với toạ độ và tỷ lệ zoom thích hợp để thể hiện đất nước Việt Nam
+        var map = L.map('map').setView([16.4637, 107.5909], 6);
+
+        // Thêm tile layer cho bản đồ
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Tạo marker tại một điểm bất kỳ
+        var marker = L.marker([16.4637, 107.5909]).addTo(map);
+
+        // Thêm popup cho marker khi click vào marker
+        marker.on('click', function(e) {
+            var popup = L.popup()
+                .setLatLng(marker.getLatLng()) // Lấy tọa độ của marker
+                .setContent("This is a popup at the clicked marker.") // Nội dung của popup
+                .openOn(map); // Mở popup trên bản đồ
+        });
+    </script>
+</body>
+</html>
