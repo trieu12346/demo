@@ -25,7 +25,7 @@
 
     map.on('click', function(ev){
         var clickLatLng = ev.latlng; //Lấy toạ độ khi click vào bản đồ
-        var popup = "kinh do: " + clickLatLng.lat.toFixed(6) + "<br>vi do: " + clickLatLng.lng.toFixed(6); // Popup content with latitude and longitude
+        var popup = "kinh do: " + clickLatLng.lat.toFixed(6) + "vi do: " + clickLatLng.lng.toFixed(6); // Popup content with latitude and longitude
         L.popup()
             .setLatLng(clickLatLng)
             .setContent(popup)

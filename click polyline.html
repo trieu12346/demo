@@ -27,20 +27,30 @@
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+ 
+ 
 
-var color =['red','blue', 'orange','green'];
-function randomHsl() {
-    return 'hsla(' + (Math.random() * 360) + ', 100%, 50%, 1)';
-}
-map.on('click', function(ev) {
-    var color = randomHsl();
-    var circle = L.circle(ev.latlng, {
-    color: color,
-    fillColor: color,
-    fillOpacity: 0.5,
-    radius: 1000
-}).addTo (map); 
-});
+var markers = []; // Mảng chứa các marker
+    var polylines = []; // Mảng chứa các polyline
+
+    map.on('click', function(e) {
+        var marker = L.marker(e.latlng).addTo(map); // Tạo marker mới
+        markers.push(marker); // Thêm marker vào mảng
+
+        // Nối các điểm marker theo thứ tự chẵn với lẻ
+        if (markers.length % 2 === 0) {
+            var startPoint = markers[markers.length - 2].getLatLng();
+            var endPoint = markers[markers.length - 1].getLatLng();
+            var polyline = L.polyline([startPoint, endPoint], {color: 'blue'}).addTo(map);
+            polylines.push(polyline); // Thêm polyline vào mảng
+        }
+    });
+
+
+
+
+   
+ 
 
 </script>
 </body>

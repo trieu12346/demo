@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cau 3 </title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-geometryutil"></script>
+<script>
+    var map = L.map('map').setView([10.046871476392315, 105.76783705423102], 13); // Khởi tạo bản đồ Leaflet
+
+    // Thêm tile layer của OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var points = []; // Mảng chứa các điểm
+    var polylines = []; // Mảng chứa các đường Polyline
+    var markers = []; // Mảng chứa các marker
+    var markerIndex = 1; // Index của marker
+
+    // Hàm xử lý khi click chuột trên bản đồ
+    function onMapClick(e) {
+        var point = e.latlng;
+        points.push(point); // Thêm điểm vào mảng
+
+        if (points.length === 1) {
+            L.marker(point).addTo(map).bindPopup('Start Point').openPopup();
+        } else if (points.length > 1) {
+            // Tạo Polyline từ các điểm trong mảng points
+            var polyline = L.polyline(points, {color: 'blue'}).addTo(map);
+            polylines.push(polyline); // Thêm Polyline vào mảng
+            
+            // Tạo marker ở điểm cuối
+            var marker = L.marker(point).addTo(map).bindPopup('Point ' + markerIndex).openPopup();
+            markers.push(marker); // Thêm marker vào mảng
+            markerIndex++; // Tăng index của marker
+
+            // Tính và hiển thị khoảng cách từ hai điểm cuối cùng
+            var startPoint = points[points.length - 2];
+            var endPoint = points[points.length - 1];
+            var distance = startPoint.distanceTo(endPoint);
+            var popupContent = 'Distance: ' + distance.toFixed(2) + ' meters';
+            L.popup()
+                .setLatLng(endPoint)
+                .setContent(popupContent)
+                .openOn(map);
+            
+            // Xóa mảng các điểm
+            points = [];
+        }
+    }
+
+    map.on('click', onMapClick); // Thêm sự kiện click cho bản đồ
+</script>
+
+</body>
+</html>
