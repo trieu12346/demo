@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        #map {
+            height: 100%;
+            width: 900px;
+        }
+        html,body{height: 100%; width: 100%;}
+    </style>
+    <title>Map Example</title>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        // Initialize the map and set its view to the given coordinates and zoom level
+        var map = L.map('map').setView([9.823667793316323, 105.5660327958988], 13);
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+      
+        var myIcon = L.icon({
+            iconUrl: 'Logo_ctuet.png', 
+            iconSize: [38, 95],       
+            iconAnchor: [22, 94],     
+            popupAnchor: [-3, -76],    
+        });
+
+        
+        var marker = L.marker([10.039835803232503, 105.77191478797941], {icon: myIcon, draggable: true }).addTo(map);
+
+        
+        let newMarker = L.marker([clickLocation.lat, clickLocation.lng], {draggable: true})
+        .on('dragend', console.log('Marker dragged')) // <-- bad times right here
+        .addTo(mapRef);
+
+    </script>
+</body>
+</html>
